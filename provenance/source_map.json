@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "note": "All files are byte-identical to their named public source Git blobs. This does not establish training or simulation reproducibility on a fresh system.",
+  "note": "All 24 entries retain original source SHA and commit. Four Object10 CSV records were imported with CRLF-to-LF line-ending normalization; text identity after newline normalization was independently checked. For these four, migrated_git_blob_sha tracks committed bytes. This audit is not proof of GPU reproduci­bility.",
   "files": {
     "implementation/batch_evaluation.py": {
       "source_repository": "30thinkdiff/corrector",
@@ -136,7 +136,9 @@
       "source_path": "studies/policy_generalization/results/20261111/closed_loop.csv",
       "source_git_blob_sha": "ad5b37a48c44e2d347462b73aebe47caa704bdef",
       "size_bytes": 6438,
-      "kind": "evidence"
+      "kind": "evidence",
+      "migrated_git_blob_sha": "1ca2122709301c5884e51af0f7cbdb8aba88a707",
+      "migration_normalization": "CRLF to LF; text equality verified after normalization"
     },
     "results/object10/monitor_coverage.csv": {
       "source_repository": "30thinkdiff/corrector",
@@ -144,7 +146,9 @@
       "source_path": "studies/policy_generalization/results/20261111/monitor_coverage.csv",
       "source_git_blob_sha": "df35a634c721539f32e7cce76549d14870d89feb",
       "size_bytes": 915,
-      "kind": "evidence"
+      "kind": "evidence",
+      "migrated_git_blob_sha": "b0504699dec16e79131d06476cc7158209551959",
+      "migration_normalization": "CRLF to LF; text equality verified after normalization"
     },
     "results/object10/paired_comparisons.csv": {
       "source_repository": "30thinkdiff/corrector",
@@ -152,7 +156,9 @@
       "source_path": "studies/policy_generalization/results/20261111/paired_comparisons.csv",
       "source_git_blob_sha": "858766e82d3f43322a44b2482d9db0acfacc65ab",
       "size_bytes": 1118,
-      "kind": "evidence"
+      "kind": "evidence",
+      "migrated_git_blob_sha": "08dd7195bf0f9dd6c7b57aca746d02af905d5a03",
+      "migration_normalization": "CRLF to LF; text equality verified after normalization"
     },
     "results/object10/summary.json": {
       "source_repository": "30thinkdiff/corrector",
@@ -168,7 +174,9 @@
       "source_path": "studies/policy_generalization/results/20261111/training_runs.csv",
       "source_git_blob_sha": "46899f850f6b012b5ad2b055dcc5ee29882fb5da",
       "size_bytes": 14937,
-      "kind": "evidence"
+      "kind": "evidence",
+      "migrated_git_blob_sha": "bc98e598ead62deda01f34e107180e8194c9c760",
+      "migration_normalization": "CRLF to LF; text equality verified after normalization"
     },
     "results/plus_horizon/plus_horizon_pairs.csv": {
       "source_repository": "30thinkdiff/robot-lab",

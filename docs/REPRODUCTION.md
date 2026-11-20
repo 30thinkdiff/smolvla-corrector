@@ -11,7 +11,7 @@ python -m unittest discover -s tests -v
 python -m compileall -q implementation scripts tests
 ~~~
 
-The first command checks exact copied-file Git blob hashes. The second re-aggregates the Object10, cross-suite and LIBERO-Plus records. The third executes regression tests. These do not load models, download datasets, access GPUs or start simulations.
+The first command verifies committed files against the provenance manifest. Four Object10 CSV files were normalized from CRLF to LF on import; both the source and committed Git blob digests are recorded, and CSV text equality was checked after newline normalization. The second re-aggregates the Object10, cross-suite and LIBERO-Plus records. The third executes regression tests. These do not load models, download datasets, access GPUs or start simulations.
 
 ## Scope of the committed evidence
 

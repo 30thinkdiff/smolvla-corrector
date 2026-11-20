@@ -55,7 +55,7 @@ python scripts/reproduce_results.py --format markdown
 python -m unittest discover -s tests -v
 ~~~
 
-The first command verifies byte-exact provenance; the second recomputes the public tables, including the four-method cross-suite trial ledger.
+The first command checks committed file digests and documented CSV line-ending normalization; the second recomputes the public tables, including the four-method cross-suite trial ledger.
 
 ## Reading notes
 

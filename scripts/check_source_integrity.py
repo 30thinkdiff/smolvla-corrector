@@ -1,4 +1,4 @@
-"""Check byte-exact source identity of pinned code and experiment outputs.
+"""Verify committed file bytes against a pinned provenance manifest.
 
 Standard library only; this runs without network, GPU or model weights.
 """
@@ -22,9 +22,9 @@ def verify(root: Path = ROOT) -> int:
         if ".." in Path(relative).parts or not path.is_file():
             raise ValueError(f"Missing or invalid source path: {relative}")
         actual = blob_sha(path.read_bytes())
-        expected = metadata["source_git_blob_sha"]
+        expected = metadata.get("migrated_git_blob_sha", metadata["source_git_blob_sha"])
         if actual != expected:
-            raise ValueError(f"Source digest mismatch: {relative}")
+            raise ValueError(f"Committed file digest mismatch: {relative}")
         count += 1
     return count
 
@@ -33,4 +33,4 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=ROOT)
     args = parser.parse_args()
-    print(f"PASS: {verify(args.root)} pinned Git blobs verified")
+    print(f"PASS: {verify(args.root)} committed Git blobs verified")

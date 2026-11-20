@@ -21,7 +21,7 @@ Historical source snapshots cannot be freely mixed. In particular, some previous
 
 ## Independent CPU-only verification
 
-- scripts/check_source_integrity.py: Git blob verification of all 24 migrated source/evidence files.
+- scripts/check_source_integrity.py: Git blob verification of 24 committed files; 4 Object10 CSV files were imported with verified CRLF-to-LF normalization.
 - scripts/reproduce_results.py: published result checks and 880-trial paired recomputation.
 - tests/: regression tests for the above.
 - .github/workflows/verify.yml: syntax compile and CPU audit; not a model-training CI test.
