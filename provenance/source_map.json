@@ -1,0 +1,198 @@
+{
+  "schema_version": 1,
+  "note": "All files are byte-identical to their named public source Git blobs. This does not establish training or simulation reproducibility on a fresh system.",
+  "files": {
+    "implementation/batch_evaluation.py": {
+      "source_repository": "30thinkdiff/corrector",
+      "source_commit": "39d6f61e33be5b1d928071ab8953f5ab8030c98d",
+      "source_path": "action-code-9274415dd6/batch_evaluation.py",
+      "source_git_blob_sha": "71048a1a3ac97afa90b545428c1efdfb681fff7e",
+      "size_bytes": 15124,
+      "kind": "code"
+    },
+    "implementation/corrector_closed_loop_eval.py": {
+      "source_repository": "30thinkdiff/corrector",
+      "source_commit": "39d6f61e33be5b1d928071ab8953f5ab8030c98d",
+      "source_path": "action-code-9274415dd6/corrector_closed_loop_eval.py",
+      "source_git_blob_sha": "84757d83e38850ba734434bf7f2af9c1a1c38f4f",
+      "size_bytes": 399,
+      "kind": "code"
+    },
+    "implementation/corrector_data_workbench.py": {
+      "source_repository": "30thinkdiff/corrector",
+      "source_commit": "39d6f61e33be5b1d928071ab8953f5ab8030c98d",
+      "source_path": "action-code-9274415dd6/corrector_data_workbench.py",
+      "source_git_blob_sha": "54edd5e8c69a981d33471634260ae99f81506e84",
+      "size_bytes": 23916,
+      "kind": "code"
+    },
+    "implementation/corrector_models.py": {
+      "source_repository": "30thinkdiff/corrector",
+      "source_commit": "39d6f61e33be5b1d928071ab8953f5ab8030c98d",
+      "source_path": "action-code-9274415dd6/corrector_models.py",
+      "source_git_blob_sha": "2420058fcd69ba55bdc66d497c67ba3dbdaac43e",
+      "size_bytes": 8668,
+      "kind": "code"
+    },
+    "implementation/corrector_online_practice.py": {
+      "source_repository": "30thinkdiff/corrector",
+      "source_commit": "39d6f61e33be5b1d928071ab8953f5ab8030c98d",
+      "source_path": "action-code-9274415dd6/corrector_online_practice.py",
+      "source_git_blob_sha": "885b52c60778ff8d46f61fa5a790aaf86b1ae80d",
+      "size_bytes": 6221,
+      "kind": "code"
+    },
+    "implementation/corrector_online_runtime.py": {
+      "source_repository": "30thinkdiff/corrector",
+      "source_commit": "39d6f61e33be5b1d928071ab8953f5ab8030c98d",
+      "source_path": "action-code-9274415dd6/corrector_online_runtime.py",
+      "source_git_blob_sha": "710025a4b1fc1db7a895d5e0d36ccce6ffd77252",
+      "size_bytes": 14186,
+      "kind": "code"
+    },
+    "implementation/corrector_results_analysis.py": {
+      "source_repository": "30thinkdiff/corrector",
+      "source_commit": "39d6f61e33be5b1d928071ab8953f5ab8030c98d",
+      "source_path": "scripts/corrector_results_analysis.py",
+      "source_git_blob_sha": "542966b9cdf66d87dbbadcd7a8b107c93d7870c8",
+      "size_bytes": 42316,
+      "kind": "code"
+    },
+    "implementation/corrector_results_bundle.py": {
+      "source_repository": "30thinkdiff/corrector",
+      "source_commit": "39d6f61e33be5b1d928071ab8953f5ab8030c98d",
+      "source_path": "scripts/corrector_results_bundle.py",
+      "source_git_blob_sha": "3aadec4c9afac46024bf9959dd6e235503b58e95",
+      "size_bytes": 11229,
+      "kind": "code"
+    },
+    "implementation/corrector_train.py": {
+      "source_repository": "30thinkdiff/corrector",
+      "source_commit": "39d6f61e33be5b1d928071ab8953f5ab8030c98d",
+      "source_path": "action-code-9274415dd6/corrector_train.py",
+      "source_git_blob_sha": "fe89ccd3998d9db2dd17d4dd2abdf3de4fd90875",
+      "size_bytes": 42624,
+      "kind": "code"
+    },
+    "implementation/smolvla_baseline_benchmark.py": {
+      "source_repository": "30thinkdiff/corrector",
+      "source_commit": "39d6f61e33be5b1d928071ab8953f5ab8030c98d",
+      "source_path": "action-code-9274415dd6/smolvla_baseline_benchmark.py",
+      "source_git_blob_sha": "252d4c8b346e3b1b8c6a9f1d1e7c9d7175f84642",
+      "size_bytes": 17653,
+      "kind": "code"
+    },
+    "implementation/smolvla_libero_tools.py": {
+      "source_repository": "30thinkdiff/corrector",
+      "source_commit": "39d6f61e33be5b1d928071ab8953f5ab8030c98d",
+      "source_path": "action-code-9274415dd6/smolvla_libero_tools.py",
+      "source_git_blob_sha": "5e6f14ff880aa8b5b69300f462521d0e4f1571a3",
+      "size_bytes": 25799,
+      "kind": "code"
+    },
+    "implementation/smolvla_training_workbench.py": {
+      "source_repository": "30thinkdiff/corrector",
+      "source_commit": "39d6f61e33be5b1d928071ab8953f5ab8030c98d",
+      "source_path": "action-code-9274415dd6/smolvla_training_workbench.py",
+      "source_git_blob_sha": "248bc78551aab0ae154e17661ff21affd7a662bf",
+      "size_bytes": 56067,
+      "kind": "code"
+    },
+    "results/cross_suite/comparisons.csv": {
+      "source_repository": "30thinkdiff/robot-lab",
+      "source_commit": "bf9405e8b1eb5f7474d9fdf6c941801671d1c7fd",
+      "source_path": "studies/policy_generalization/results/20261117/crosssuite/comparisons.csv",
+      "source_git_blob_sha": "18f4a2802b0d81e6789ad616a945b5f618a61fb6",
+      "size_bytes": 3662,
+      "kind": "evidence"
+    },
+    "results/cross_suite/methods.csv": {
+      "source_repository": "30thinkdiff/robot-lab",
+      "source_commit": "bf9405e8b1eb5f7474d9fdf6c941801671d1c7fd",
+      "source_path": "studies/policy_generalization/results/20261117/crosssuite/methods.csv",
+      "source_git_blob_sha": "2237694fa5206c24f3114cb752c3209ff1951455",
+      "size_bytes": 8427,
+      "kind": "evidence"
+    },
+    "results/cross_suite/summary.json": {
+      "source_repository": "30thinkdiff/robot-lab",
+      "source_commit": "bf9405e8b1eb5f7474d9fdf6c941801671d1c7fd",
+      "source_path": "studies/policy_generalization/results/20261117/crosssuite/summary.json",
+      "source_git_blob_sha": "0bf1446628d04d8a4f710d3e576d7b38654d9a66",
+      "size_bytes": 3782,
+      "kind": "evidence"
+    },
+    "results/cross_suite/trials.csv": {
+      "source_repository": "30thinkdiff/robot-lab",
+      "source_commit": "bf9405e8b1eb5f7474d9fdf6c941801671d1c7fd",
+      "source_path": "studies/policy_generalization/results/20261117/crosssuite/trials.csv",
+      "source_git_blob_sha": "66d02d3448f6046683cffb389df29eb45b4d3b66",
+      "size_bytes": 355188,
+      "kind": "evidence"
+    },
+    "results/object10/closed_loop.csv": {
+      "source_repository": "30thinkdiff/corrector",
+      "source_commit": "39d6f61e33be5b1d928071ab8953f5ab8030c98d",
+      "source_path": "studies/policy_generalization/results/20261111/closed_loop.csv",
+      "source_git_blob_sha": "ad5b37a48c44e2d347462b73aebe47caa704bdef",
+      "size_bytes": 6438,
+      "kind": "evidence"
+    },
+    "results/object10/monitor_coverage.csv": {
+      "source_repository": "30thinkdiff/corrector",
+      "source_commit": "39d6f61e33be5b1d928071ab8953f5ab8030c98d",
+      "source_path": "studies/policy_generalization/results/20261111/monitor_coverage.csv",
+      "source_git_blob_sha": "df35a634c721539f32e7cce76549d14870d89feb",
+      "size_bytes": 915,
+      "kind": "evidence"
+    },
+    "results/object10/paired_comparisons.csv": {
+      "source_repository": "30thinkdiff/corrector",
+      "source_commit": "39d6f61e33be5b1d928071ab8953f5ab8030c98d",
+      "source_path": "studies/policy_generalization/results/20261111/paired_comparisons.csv",
+      "source_git_blob_sha": "858766e82d3f43322a44b2482d9db0acfacc65ab",
+      "size_bytes": 1118,
+      "kind": "evidence"
+    },
+    "results/object10/summary.json": {
+      "source_repository": "30thinkdiff/corrector",
+      "source_commit": "39d6f61e33be5b1d928071ab8953f5ab8030c98d",
+      "source_path": "studies/policy_generalization/results/20261111/summary.json",
+      "source_git_blob_sha": "5af268b7cafcd4c9b5c96d46d5feab6225bcb095",
+      "size_bytes": 46885,
+      "kind": "evidence"
+    },
+    "results/object10/training_runs.csv": {
+      "source_repository": "30thinkdiff/corrector",
+      "source_commit": "39d6f61e33be5b1d928071ab8953f5ab8030c98d",
+      "source_path": "studies/policy_generalization/results/20261111/training_runs.csv",
+      "source_git_blob_sha": "46899f850f6b012b5ad2b055dcc5ee29882fb5da",
+      "size_bytes": 14937,
+      "kind": "evidence"
+    },
+    "results/plus_horizon/plus_horizon_pairs.csv": {
+      "source_repository": "30thinkdiff/robot-lab",
+      "source_commit": "bf9405e8b1eb5f7474d9fdf6c941801671d1c7fd",
+      "source_path": "studies/policy_generalization/results/20261116/gpu_followup/plus_horizon_pairs.csv",
+      "source_git_blob_sha": "d6a68fd9e817d8f4cc4bf2c3768b66da4bb84f7a",
+      "size_bytes": 2587,
+      "kind": "evidence"
+    },
+    "results/plus_horizon/plus_horizon_results.csv": {
+      "source_repository": "30thinkdiff/robot-lab",
+      "source_commit": "bf9405e8b1eb5f7474d9fdf6c941801671d1c7fd",
+      "source_path": "studies/policy_generalization/results/20261116/gpu_followup/plus_horizon_results.csv",
+      "source_git_blob_sha": "be409b5ec4993e329ae05e057f9bbdeb24e9bfcd",
+      "size_bytes": 18619,
+      "kind": "evidence"
+    },
+    "results/plus_horizon/summary.json": {
+      "source_repository": "30thinkdiff/robot-lab",
+      "source_commit": "bf9405e8b1eb5f7474d9fdf6c941801671d1c7fd",
+      "source_path": "studies/policy_generalization/results/20261116/gpu_followup/summary.json",
+      "source_git_blob_sha": "ca1998d3fafbdb4230b5837e9042419191a681e5",
+      "size_bytes": 4195,
+      "kind": "evidence"
+    }
+  }
+}
