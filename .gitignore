@@ -20,6 +20,7 @@ weights/
 *.npy
 *.h5
 *.mp4
+!media/showcase/*.mp4
 *.avi
 *.mov
 outputs/

@@ -4,7 +4,7 @@
 
 An independent research implementation based on [VLA-Corrector](https://github.com/ZJU-OmniAI/vla-corrector) (NeurIPS 2026). This repository preserves selected predictor-training and online-correction code, alongside recorded closed-loop evidence. It is not the official implementation, and its results are not the original paper's headline benchmark.
 
-[Technical report](docs/TECHNICAL_REPORT.md) · [Reproduction guide](docs/REPRODUCTION.md) · [Source attribution](THIRD_PARTY.md)
+[Technical report](docs/TECHNICAL_REPORT.md) · [Code map](docs/CODE_MAP.md) · [Reproduction guide](docs/REPRODUCTION.md) · [Source attribution](THIRD_PARTY.md)
 
 ![Object10 and cross-suite primary results](assets/results.svg)
 
