@@ -1,106 +1,140 @@
-# Technical Report — SmolVLA-Corrector
+# 技术报告：SmolVLA-Corrector
 
-> Working document. The experimental numbers below can be reproduced from committed evidence. Sections marked **AUTHOR TO COMPLETE** require original technical explanations, code walkthroughs, and reviewed qualitative cases. Do not delete those labels before the content has been checked.
+<p align="center">
+  <strong>简体中文</strong> · <a href="TECHNICAL_REPORT.en.md">English</a>
+</p>
 
-## Abstract
+> **研究报告工作稿。** 已填实验数字来自本仓库已提交的记录，可使用CPU脚本复算。标记为**「待作者完善」**的部分需要依据源码、运行协议和原始案例补写；没有验收前不能写成已经证明的结论。**中文版是主要维护版本**，英文版根据中文同步。
 
-**AUTHOR TO COMPLETE (100–150 words).** State the problem, actual reproduced method, experiment setting, one supported positive result, and the central negative cross-suite finding. Avoid generic claims such as “significantly improves robustness” without a specified protocol.
+[中文README](../README.md) · [English README](../README.en.md) · [复现说明](REPRODUCTION.md) · [来源与许可](../THIRD_PARTY.md)
 
-## 1. Problem and research questions
+## 摘要
 
-**AUTHOR TO COMPLETE.** Define: why fixed action chunks can accumulate state mismatch; what the Corrector predicts; why event-triggered replanning is more expensive than it first appears; what is being measured.
+**【待作者完善｜约200—300字】** 简述要解决的问题、复现的上游方法、使用的基础策略和任务环境、Object10的正向结果，以及跨任务实验中收益未能稳定迁移的结论。没有充分证据时，不要使用「显著提升鲁棒性」等泛化表述。
 
-Suggested questions:
-- Does visual dynamics monitoring improve closed-loop success compared with fixed execution horizons?
-- How much VLA resampling and monitoring wall time does it require?
-- Does lower offline prediction loss correlate with more successful closed-loop behavior?
-- Does the Object10 outcome transfer across other LIBERO suites?
+## 1. 研究背景与问题定义
 
-## 2. Method
+**【待作者完善】** 解释固定Action Chunk执行时的状态偏离；Corrector所预测的变量；事件触发重规划的收益与成本；成功率、重新调用VLA次数和真实运行耗时分别反映什么。
 
-### 2.1 Upstream method and precise attribution
+重点问题：
 
-The underlying visual dynamics prediction and LVM/OGG formulation originate from the original VLA-Corrector work (see THIRD_PARTY.md). **AUTHOR TO COMPLETE:** Describe the method by tracing real modules, not by copying an upstream schematic without attribution.
+1. 视觉动态监测相对固定动作执行窗口，能否改善闭环成功率？
+2. 需要多少次VLA动作生成，以及多少额外监测时间？
+3. 离线预测Loss更低，能否转化为闭环操作收益？
+4. Object10观察到的结果能否迁移至其他LIBERO套件？
 
-### 2.2 Inputs, prediction target, and training loss
+## 2. 方法设计与实现
 
-**AUTHOR TO COMPLETE:**
-- Observation modalities, encoder tensor shape, action condition, temporal horizon, timestamp units.
-- Model-specific differences: MLP, single-/three-frame Transformer, action-conditioned Transformer.
-- Exact loss formula, normalization, validation split, learning rate schedule, and inference precision.
-- Explicitly distinguish the visual dynamics training loss from the online OGG objective.
+### 2.1 上游方法与贡献边界
 
-### 2.3 Online behavior
+视觉动态预测、LVM与OGG的主要思想来自原始[VLA-Corrector](https://github.com/ZJU-OmniAI/vla-corrector)研究，来源与固定版本详见[第三方说明](../THIRD_PARTY.md)。
 
-**AUTHOR TO COMPLETE:** Explain the monitor state machine, initial calibration, threshold update, score eligibility, queue interruption, and action resampling. Specify when a score is unavailable; do not confuse bootstrap with unscored control steps.
+**【待作者完善】** 先准确讲清原论文机制，再明确区分本项目的接口适配、模型扩展、训练和实证评估。不能把原论文提出的机制、算法或未经授权改作的原图描述为个人原创成果。
 
-### 2.4 Engineering extensions and scope
+### 2.2 模型输入、预测目标与训练Loss
 
-**AUTHOR TO COMPLETE:** Clearly separate upstream source, modified integration code, multi-frame/action-sequence experiments, cross-layer diagnostics, additional controller experiments, and replay tooling. Name the actual corresponding source files and immutable run revisions.
+**【待作者完善】** 对照模型和数据处理源码说明：
 
-## 3. Evaluation protocol
+- 双相机观测、机器人状态、视觉特征与动作条件的张量维度和类型；
+- 视觉特征变化的预测目标、预测间隔、训练数据频率与在线控制频率；
+- MLP、单/三帧历史Transformer、10动作条件Transformer在输入和输出上的区别；
+- Loss、特征归一化、数据划分、优化器、调度器、数值精度与训练配置；
+- 预测器的**监督训练Loss**与在线**OGG引导目标**的区别。
 
-- Policy: pinned SmolVLA-LIBERO checkpoint; upstream environment and policy revisions in THIRD_PARTY.md.
-- Object10: 10 manipulation tasks, 454 demonstration episodes, 66,984 observed frames; 15 predictor training runs (5 configurations × 3 training seeds). The main example uses 60 matched trials *per method*.
-- Cross-suite: 880 formal trials in 220 four-method groups. The primary comparison is 3 suites × 40 matched trials *per method*; additional initial states and the fixed LIBERO-90 subset have separate denominators.
-- LIBERO-Plus horizon: 32 selected conditions per method, one evaluation seed.
+特别注意：有历史多帧作为输入，不代表模型就预测多个未来时刻；必须以实际代码为准。
 
-**AUTHOR TO COMPLETE:** Add exact control Hz, generated chunk length, executed prefix, environment step limit, timestep/initial-state identity, random seed protocol, checkpoint hashes, model call measurement, and failure/success definition. Confirm the base policy's task-level training coverage before using terms like “zero-shot.”
+### 2.3 在线监测与执行时序
 
-## 4. Findings
+**【待作者完善】** 说明预测、评分到期、Bootstrap校准、阈值更新、连续超阈计数、动作队列中断、重新规划和OGG引导的真实顺序。
 
-### 4.1 Object10 paired outcomes
+区分首次预测到期前的预热、动态阈值校准、监测覆盖率分母和动作条件失效后的未评分时段。**覆盖100%不代表异常检测一定准确。**
 
-| Strategy | Successes / trials |
+### 2.4 本项目的工程工作与扩展
+
+**【待作者完善】** 依据源码与结果审计，按**上游提供 / 本项目实现或修改 / 探索性实验**逐项列明：
+
+- VLA-Corrector与SmolVLA、LIBERO的接口与时序适配；
+- 多历史帧及动作序列条件预测器；
+- 多层视觉特征和监测扩展；
+- LVM、OGG及其他在线监测与控制变体；
+- 逐回合配对分析、运行日志和Replay工具。
+
+填写每项贡献对应的代码路径、固定SHA、实际训练或测试证据。
+
+## 3. 数据与评测协议
+
+- **基础策略：** 固定版本SmolVLA-LIBERO；模型和上游环境版本见[第三方来源](../THIRD_PARTY.md)。
+- **Object10：** 10个任务、454条示教、66,984帧；5种预测器配置×3训练随机种子，共15组训练。这里展示的MLP基线为每种方法**60组同条件配对回合**。
+- **跨任务评测：** 880个正式回合、220组四方法配对。主要比较为Spatial、Goal、Long三套件，每套件每方法40回合。补充初始状态和固定LIBERO-90十任务子集使用独立分母。
+- **LIBERO-Plus执行窗口：** 32个筛选条件，每种固定窗口32回合、一个评测随机种子。
+
+**【待作者完善】** 补充控制频率、Chunk生成长度和执行前缀、各任务步数上限、初始状态的记录与审计方式、训练/评测seed、Checkpoint版本、成功定义和耗时统计口径。
+
+未核对基础策略训练任务覆盖时，不应将跨任务测试全部称作基础策略的零样本泛化。
+
+## 4. 实验结果
+
+### 4.1 Object10：配对闭环成功率
+
+| 方法 | 成功回合 / 总回合 |
 | --- | ---: |
-| Fixed H50 | 44/60 |
-| Fixed H20 | 51/60 |
+| 固定执行H50 | 44/60 |
+| 固定执行H20 | 51/60 |
 | MLP + LVM | 55/60 |
 | MLP + OGG | 55/60 |
 
-The OGG method has **no additional Object10 success-rate gain over LVM** in the recorded 60 matched conditions. Comparing policy chunk calls alone is not a complete runtime comparison; LVM has nonzero monitoring cost.
+在这些Object10配对条件下，MLP-LVM的成功回合高于固定窗口。但**OGG并没有相对LVM增加成功回合**；不能把相对于H20的全部差值归因于OGG。减少动作块生成次数也不等于端到端耗时下降，因为监测涉及额外计算。
 
-### 4.2 Cross-suite transfer
+来源：[闭环汇总](../results/object10/closed_loop.csv)和[配对对照](../results/object10/paired_comparisons.csv)。
 
-| Strategy | Spatial + Goal + Long, primary comparison |
+### 4.2 跨任务结果
+
+| 方法 | Spatial + Goal + Long：主要比较 |
 | --- | ---: |
-| Fixed H50 | 81/120 |
-| Fixed H20 | 93/120 |
+| 固定执行H50 | 81/120 |
+| 固定执行H20 | 93/120 |
 | MLP + LVM | 80/120 |
 | MLP + OGG | 77/120 |
 
-**AUTHOR TO COMPLETE:** Explain which failure categories differ by suite, how many paired wins/losses each method has, and why the observed difference cannot automatically be attributed to a single cause. Acknowledge that one selected MLP training seed is not evidence of universal generalization.
+**【待作者完善】** 分任务套件核对配对胜负和失败类型。明确区分直接测量的结果与失败原因推断。当前主要结果只涉及指定的MLP训练模型，不能外推为所有Corrector结构都没有跨任务价值。
 
-### 4.3 Monitoring coverage and action conditioning
+来源：[逐回合记录](../results/cross_suite/trials.csv)、[分方法结果](../results/cross_suite/methods.csv)。
 
-**AUTHOR TO COMPLETE:** Use the monitor_coverage.csv counts to compare single-action predictors (100% after defined warmup) and ten-action-conditioned models (approximately 59% scored-step coverage). Discuss prediction invalidation, cancellation and action queue timing without implying proven causality for the full success gap.
+### 4.3 监测覆盖率与动作条件
 
-### 4.4 Execution horizon versus computation
+**【待作者完善】** 根据[覆盖率记录](../results/object10/monitor_coverage.csv)，分析单动作条件模型在定义的可评分步上覆盖100%、10动作条件模型约59%的差别。讨论预测取消、条件过期、历史窗口与动作队列等因素，但不能把覆盖下降直接断言为成功率降低的唯一原因。
 
-See results/plus_horizon. The 32 selected-condition counts were H50 7/32, H20 20/32, H10 19/32, H5 15/32, H1 6/32. **AUTHOR TO COMPLETE:** Add a verified interpretation of performance / compute tradeoffs, with scope limitations.
+### 4.4 执行前缀与计算代价
 
-### 4.5 Qualitative evidence
+在选定32个LIBERO-Plus条件中，固定执行窗口成功数为：H50 **7/32**、H20 **20/32**、H10 **19/32**、H5 **15/32**、H1 **6/32**。
 
-**AUTHOR TO COMPLETE:** Insert 2–3 *real, original* paired rollout videos and their exact task, initialization, seed and method IDs. Include at least one negative case. Mark selected case studies as illustrations, not representative random samples.
+**【待作者完善】** 结合VLA调用次数、真实监测耗时、环境步数和墙钟时间，分析执行前缀与成本的权衡。这组筛选条件不能代表普遍最优窗口。
 
-## 5. Limitations and next hypotheses
+来源：[LIBERO-Plus实验结果](../results/plus_horizon/plus_horizon_results.csv)。
 
-**AUTHOR TO COMPLETE.** At minimum cover:
-- No stable cross-suite advantage over H20 in the primary comparison.
-- OGG gradient updates do not guarantee additional success.
-- Online monitoring has nontrivial wall-time overhead.
-- Offline supervised prediction metrics do not directly measure task success.
-- Monitoring coverage depends on whether the required action condition remains available.
-- Repeated initial-state/seed measurements are not automatically independent robot scenes.
-- Current artifacts are not a fresh-clone GPU reproducibility guarantee.
+### 4.5 典型案例
 
-Each causal claim should be identified as **measured evidence**, **inference**, or **unverified hypothesis**.
+**【待作者完善】** 从真实实验归档选择2—3组完整的配对视频/轨迹，包括至少一例未能纠偏或性能退化。每段视频应能对应具体任务、初始化、seed、方法、模型版本和原始文件。已挑选案例只能作为机制说明，不得当成随机样本的统计代表。
 
-## 6. Conclusion
+## 5. 失败分析、局限与后续假设
 
-**AUTHOR TO COMPLETE (80–120 words).** State both positive and negative conclusions and a narrowly motivated next experiment.
+**【待作者完善】** 至少讨论：
 
-## Appendix A. How to reproduce the public tables
+- Object10正向结果未在跨任务主要比较中稳定维持；
+- OGG梯度更新真实发生，不意味着最终任务成功；
+- 视觉监测增加了实际墙钟开销；
+- 离线预测误差与闭环成功率不是同一个指标；
+- 动作条件可用性会影响监测评分覆盖；
+- 多个seed与重复初始化未必构成独立物理场景；
+- 已通过CPU结果复算，不等于已在干净环境完成GPU端到端复现。
+
+对可能的原因逐条区分：**实测事实 / 基于数据的推断 / 尚未验证的假设**。
+
+## 6. 结论
+
+**【待作者完善｜约120—200字】** 同时呈现Object10的有条件收益、跨任务负结果与局限，再说明一个具有明确验收指标的下一步研究方向，不要将适用边界写成普遍成立。
+
+## 附录A：公开结果复算
 
 ~~~bash
 python scripts/check_source_integrity.py
@@ -108,14 +142,20 @@ python scripts/reproduce_results.py --format markdown
 python -m unittest discover -s tests -v
 ~~~
 
-## Appendix B. Source provenance
+此处命令为CPU/标准库检查，不会重新训练或运行仿真。
 
-See provenance/source_map.json, docs/REPRODUCTION.md and THIRD_PARTY.md.
+## 附录B：版本与来源
 
-## Appendix C. Bibliography
+参见 [source_map.json](../provenance/source_map.json)、[复现说明](REPRODUCTION.md)和[第三方声明](../THIRD_PARTY.md)。
 
-- Pan et al. VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon. NeurIPS 2026. https://github.com/ZJU-OmniAI/vla-corrector
-- LeRobot / SmolVLA source and version: https://github.com/huggingface/lerobot
-- LIBERO: https://github.com/Lifelong-Robot-Learning/LIBERO
+## 附录C：参考文献
 
-**AUTHOR TO COMPLETE:** Add exact related work references used in the text; check formal citation details before publication.
+- Pan et al. *VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon*. NeurIPS 2026. https://github.com/ZJU-OmniAI/vla-corrector
+- LeRobot / SmolVLA：https://github.com/huggingface/lerobot
+- LIBERO：https://github.com/Lifelong-Robot-Learning/LIBERO
+
+**【待作者完善】** 根据正文实际引用补充相关研究，并核实作者、正式题目、年份及版本。
+
+---
+
+**同步约定：** 优先维护本中文报告；后续按中文内容更新[英文技术报告](TECHNICAL_REPORT.en.md)。中英文数值或表述出现冲突时，首先以原始实验数据和实际运行协议为准。

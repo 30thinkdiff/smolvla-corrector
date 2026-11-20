@@ -1,49 +1,57 @@
 # SmolVLA-Corrector
 
-**Reproduction and empirical study of VLA-Corrector with SmolVLA and LIBERO**
+**基于 VLA-Corrector 的复现、扩展与闭环鲁棒性研究**
 
-An independent research implementation based on [VLA-Corrector](https://github.com/ZJU-OmniAI/vla-corrector) (NeurIPS 2026). This repository preserves selected predictor-training and online-correction code, alongside recorded closed-loop evidence. It is not the official implementation, and its results are not the original paper's headline benchmark.
+<p align="center">
+  <strong>简体中文</strong> · <a href="README.en.md">English</a>
+</p>
 
-[Technical report](docs/TECHNICAL_REPORT.md) · [Code map](docs/CODE_MAP.md) · [Reproduction guide](docs/REPRODUCTION.md) · [Source attribution](THIRD_PARTY.md)
+本项目以 [VLA-Corrector](https://github.com/ZJU-OmniAI/vla-corrector)（NeurIPS 2026）为基础，结合 **SmolVLA / LIBERO**，研究视觉动态预测、在线状态偏离监测与事件触发重规划在机器人操作任务中的实际效果。仓库整理了历史训练与在线执行代码、可复算的实验记录，以及复现过程中发现的局限。
 
-![Object10 and cross-suite primary results](assets/results.svg)
+**本仓库是独立复现与实证研究，不是原论文官方实现；下文成绩也不是原论文公布的基准结果。**
 
-## Research question
+[技术报告（中文）](docs/TECHNICAL_REPORT.md) · [代码说明](docs/CODE_MAP.md) · [复现说明](docs/REPRODUCTION.md) · [第三方来源与许可](THIRD_PARTY.md)
 
-A VLA policy can emit a long action chunk, but subsequent environment observations can diverge from its expected visual transition. This study tests whether an action-conditioned visual dynamics predictor and event-triggered replanning improve execution while controlling the cost of frequent VLA calls.
+![Object10与跨任务主要结果](assets/results.svg)
 
-![Core online pipeline](assets/method_overview.svg)
+## 研究问题
 
-## Main observations
+VLA通常一次生成一段动作（Action Chunk）。在执行过程中，环境状态可能偏离生成动作时的预期；始终执行完整动作块难以及时利用新观测，但频繁重新调用VLA也有计算成本。
 
-| Strategy | Object10 (60 matched trials) | Spatial + Goal + Long (120 primary trials) |
+本项目研究：**能否利用视觉特征变化预测判断何时需要重新规划？这种机制在闭环成功率、计算开销和跨任务迁移上是否真正有效？**
+
+![在线监测与重规划示意](assets/method_overview.svg)
+
+## 主要实验结果
+
+| 方法 | Object10（60组配对回合/方法） | Spatial + Goal + Long（主要比较：120回合/方法） |
 | --- | ---: | ---: |
-| Fixed H50 | 44/60 | 81/120 |
-| Fixed H20 | 51/60 | **93/120** |
+| 固定执行 H50 | 44/60 | 81/120 |
+| 固定执行 H20 | 51/60 | **93/120** |
 | MLP + LVM | **55/60** | 80/120 |
 | MLP + OGG | **55/60** | 77/120 |
 
-**Interpretation.** Event-triggered LVM improves the Object10 outcome under this protocol, but does not retain an advantage on the independent suite comparisons. OGG provides no additional Object10 success-rate improvement beyond LVM. Monitoring also adds wall-clock overhead, even if it can reduce the number of VLA chunk generations.
+在Object10的配对测试中，MLP-LVM的成功回合数高于固定H20与H50，但**OGG相较LVM没有增加成功回合**。在Spatial、Goal、Long三个任务套件的预先固定主要比较中，H20反而领先。监测能够改变VLA生成动作块的次数，但会引入额外的墙钟耗时；不能仅凭动作块调用次数声称端到端加速。
 
-The broader experiment record includes 5 predictor configurations × 3 training seeds, 1,200 formal configuration/method trials on Object10, and 880 completed cross-suite trials in 220 four-method matched groups. Reused baseline trials are not independent observations.
+完整实验记录包括 **5种预测器配置×3个训练种子**、Object10的 **1,200个配置/方法级正式评测回合**，以及跨任务的 **880个正式回合（220组四方法配对）**。不同预测器配置下重复执行的基线，不能累计为独立样本。
 
-For execution-window sensitivity, see the [32-condition LIBERO-Plus study](results/plus_horizon/summary.json). A shorter executed prefix is not uniformly better.
+此外，另有[LIBERO-Plus上32个条件的执行窗口实验](results/plus_horizon/summary.json)：执行窗口缩短并不必然改善成功率。
 
-## Code and evidence
+## 代码与实验记录
 
-| Path | Contents |
+| 路径 | 内容 |
 | --- | --- |
-| [implementation/](implementation/) | Pinned predictor/data/training, online LVM/OGG and LIBERO simulation scripts |
-| [results/object10/](results/object10/) | Training runs, matched method comparisons and monitor coverage |
-| [results/cross_suite/](results/cross_suite/) | Full 880-trial ledger and primary suite aggregates |
-| [results/plus_horizon/](results/plus_horizon/) | Five fixed execution horizons on selected LIBERO-Plus conditions |
-| [provenance/source_map.json](provenance/source_map.json) | Exact upstream repository, commit, source file and Git blob SHA for each imported artifact |
+| [implementation/](implementation/) | 固定版本预测器、训练、LVM/OGG与LIBERO集成源码 |
+| [results/object10/](results/object10/) | 训练结果、配对对照、监测覆盖率 |
+| [results/cross_suite/](results/cross_suite/) | 880条跨任务回合记录及汇总 |
+| [results/plus_horizon/](results/plus_horizon/) | LIBERO-Plus执行窗口实验 |
+| [provenance/source_map.json](provenance/source_map.json) | 每份迁移文件的原仓库、固定提交、路径和Git Blob SHA |
 
-The code is a **curated frozen research integration**, not a standalone GPU package; the original run environment and external checkpoints remain separate. See the [reproduction guide](docs/REPRODUCTION.md) before trying GPU training or simulation.
+这些代码保留了研究时的集成方式，**并不是已经通过全新环境一键GPU复现的独立软件包**。不同实验的历史Checkpoint需要对应的冻结源码，见[复现说明](docs/REPRODUCTION.md)。
 
-## Check the published numbers
+## 复算公开数据
 
-Python 3.10+; standard library only, no downloads or GPU required:
+只需要Python 3.10+标准库，无需GPU、模型下载或仿真：
 
 ~~~bash
 python scripts/check_source_integrity.py
@@ -51,14 +59,16 @@ python scripts/reproduce_results.py --format markdown
 python -m unittest discover -s tests -v
 ~~~
 
-The first command verifies byte-exact provenance; the second recomputes the public tables, including the four-method cross-suite trial ledger.
+三条命令分别用于检查迁移文件来源、复算实验统计和运行CPU回归测试。
 
-## Reading notes
+## 阅读与后续完善
 
-- [Technical report](docs/TECHNICAL_REPORT.md) — method details, controlled comparisons and limitations. **Working draft: author sections are explicitly marked for completion.**
-- [Reproduction guide](docs/REPRODUCTION.md) — scope, dependencies, source versions and known gaps.
-- [Third-party credits](THIRD_PARTY.md) — original paper, dependencies and redistributed-code attribution.
+先阅读本页及[技术报告](docs/TECHNICAL_REPORT.md)理解方法和实验边界；查看实现时参考[代码索引](docs/CODE_MAP.md)和[来源映射](provenance/source_map.json)。
 
-**Scope limits.** The main cross-suite table excludes extra-initial-state runs and the fixed LIBERO-90 subset; the base SmolVLA policy's full task-level training coverage is not established. Selected comparison cases should not be treated as unbiased aggregate performance.
+**研究边界：** 跨任务主表不包含补充初始状态及固定LIBERO-90十任务子集；基础SmolVLA的任务级训练覆盖尚未独立核对。后续发布的精选视频只用于解释具体案例，不能替代整体统计。
 
-> **Portfolio work in progress:** The public quantitative results and frozen source files are real and provenance-pinned. Original case videos, fresh-clone GPU verification and the author's detailed interpretation remain to be added.
+> **当前状态：** 代码与公开实验记录已整理，技术报告仍有作者待完善部分；公开的原始配对视频、独立环境GPU端到端复现尚未完成。
+
+---
+
+**维护约定：** 中文 [README.md](README.md) 与[中文技术报告](docs/TECHNICAL_REPORT.md)是主要维护版本。你修改中文内容后，再同步英文 [README](README.en.md) 和 [Technical Report](docs/TECHNICAL_REPORT.en.md)；涉及结果数字时须同时核对原始实验记录。
