@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="488" viewBox="0 0 1080 488" role="img" aria-label="Object10 and cross-suite primary success rate comparisons">
+<rect width="1080" height="488" rx="18" fill="#f8fafc"/>
+<text x="38" y="46" font-family="Inter,Arial,sans-serif" font-size="24" font-weight="700" fill="#18354b">Closed-loop success rates</text>
+<text x="38" y="73" font-family="Inter,Arial,sans-serif" font-size="14" fill="#5e7383">Pinned evaluation records · different protocols, separate denominators</text>
+<rect x="38" y="110" width="488" height="325" rx="14" fill="white" stroke="#d9e4e9"/>
+<text x="60" y="148" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#203d52">Object10 · matched conditions</text>
+<text x="60" y="173" font-family="Inter,Arial,sans-serif" font-size="12.5" fill="#5e7383">Successes / 60 trials per method</text>
+<text x="60" y="225" font-family="Inter,Arial,sans-serif" font-size="14" fill="#253c4d">Fixed H50</text>
+<rect x="182" y="210" width="255" height="19" rx="5" fill="#e8edf1"/>
+<rect x="182" y="210" width="187" height="19" rx="5" fill="#738398"/>
+<text x="446" y="225" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="650" fill="#253c4d">44/60</text>
+<text x="60" y="276" font-family="Inter,Arial,sans-serif" font-size="14" fill="#253c4d">Fixed H20</text>
+<rect x="182" y="261" width="255" height="19" rx="5" fill="#e8edf1"/>
+<rect x="182" y="261" width="217" height="19" rx="5" fill="#596f85"/>
+<text x="446" y="276" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="650" fill="#253c4d">51/60</text>
+<text x="60" y="327" font-family="Inter,Arial,sans-serif" font-size="14" fill="#253c4d">MLP–LVM</text>
+<rect x="182" y="312" width="255" height="19" rx="5" fill="#e8edf1"/>
+<rect x="182" y="312" width="234" height="19" rx="5" fill="#2376a2"/>
+<text x="446" y="327" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="650" fill="#253c4d">55/60</text>
+<text x="60" y="378" font-family="Inter,Arial,sans-serif" font-size="14" fill="#253c4d">MLP–OGG</text>
+<rect x="182" y="363" width="255" height="19" rx="5" fill="#e8edf1"/>
+<rect x="182" y="363" width="234" height="19" rx="5" fill="#bb7a56"/>
+<text x="446" y="378" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="650" fill="#253c4d">55/60</text>
+<text x="60" y="413" font-family="Inter,Arial,sans-serif" font-size="11.5" fill="#758795">LVM = OGG; no incremental success in these 60 trials</text>
+<rect x="552" y="110" width="488" height="325" rx="14" fill="white" stroke="#d9e4e9"/>
+<text x="574" y="148" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#203d52">Cross-suite · primary comparison</text>
+<text x="574" y="173" font-family="Inter,Arial,sans-serif" font-size="12.5" fill="#5e7383">Spatial + Goal + Long · successes / 120 per method</text>
+<text x="574" y="225" font-family="Inter,Arial,sans-serif" font-size="14" fill="#253c4d">Fixed H50</text>
+<rect x="696" y="210" width="255" height="19" rx="5" fill="#e8edf1"/>
+<rect x="696" y="210" width="172" height="19" rx="5" fill="#738398"/>
+<text x="960" y="225" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="650" fill="#253c4d">81/120</text>
+<text x="574" y="276" font-family="Inter,Arial,sans-serif" font-size="14" fill="#253c4d">Fixed H20</text>
+<rect x="696" y="261" width="255" height="19" rx="5" fill="#e8edf1"/>
+<rect x="696" y="261" width="198" height="19" rx="5" fill="#596f85"/>
+<text x="960" y="276" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="650" fill="#253c4d">93/120</text>
+<text x="574" y="327" font-family="Inter,Arial,sans-serif" font-size="14" fill="#253c4d">MLP–LVM</text>
+<rect x="696" y="312" width="255" height="19" rx="5" fill="#e8edf1"/>
+<rect x="696" y="312" width="170" height="19" rx="5" fill="#2376a2"/>
+<text x="960" y="327" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="650" fill="#253c4d">80/120</text>
+<text x="574" y="378" font-family="Inter,Arial,sans-serif" font-size="14" fill="#253c4d">MLP–OGG</text>
+<rect x="696" y="363" width="255" height="19" rx="5" fill="#e8edf1"/>
+<rect x="696" y="363" width="164" height="19" rx="5" fill="#bb7a56"/>
+<text x="960" y="378" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="650" fill="#253c4d">77/120</text>
+<text x="574" y="413" font-family="Inter,Arial,sans-serif" font-size="11.5" fill="#758795">H20 leads; benefits do not consistently transfer</text>
+<text x="540" y="470" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="12" fill="#5e7383">To recompute: python scripts/reproduce_results.py</text>
+</svg>
