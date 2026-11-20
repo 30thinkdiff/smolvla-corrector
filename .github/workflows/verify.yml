@@ -1,0 +1,21 @@
+name: verify
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  cpu-evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Compile Python sources without importing GPU dependencies
+        run: python -m compileall -q implementation scripts tests
+      - name: Recalculate published results and run tests
+        run: |
+          python scripts/reproduce_results.py --format json
+          python -m unittest discover -s tests -v
