@@ -271,14 +271,18 @@ $$
 三种损失的定义为：
 
 $$
-\begin{aligned}
-\mathcal L_{\cos}&=1-\cos\bigl(\mathrm{vec}(\hat d),\mathrm{vec}(d^{*})\bigr),\\
-\mathcal L_{\mathrm{MSE}}&=\mathrm{mean}\bigl[(\hat d-d^{*})^2\bigr],\\
-\mathcal L_{\mathrm{sum}}&=\mathcal L_{\mathrm{MSE}}+\mathcal L_{\cos},
-\end{aligned}
+\mathcal L_{\cos}=1-\cos\left(\mathrm{vec}(\hat d),\mathrm{vec}(d^{\ast})\right).
 $$
 
-其中 $\hat d$ 是新候选动作对应的预测变化，$d^{*}$ 为触发时固定的纠偏目标。
+$$
+\mathcal L_{\mathrm{MSE}}=\mathrm{mean}\left[(\hat d-d^{\ast})^2\right].
+$$
+
+$$
+\mathcal L_{\mathrm{sum}}=\mathcal L_{\mathrm{MSE}}+\mathcal L_{\cos}.
+$$
+
+其中 $\hat d$ 是新候选动作对应的预测变化，$d^{\ast}$ 为触发时固定的纠偏目标。
 
 我们**仅改变OGG损失函数**的组成。三种方法统一采用 **$\eta=1$、50步动作块、10次Flow Matching去噪、guidance_every=3**（每次重规划的去噪索引0、3、6、9施加引导），MSE＋余弦的两项系数均为1。
 
