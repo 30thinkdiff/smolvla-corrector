@@ -74,8 +74,8 @@ Object10 训练数据使用 10 Hz 示教数据和 $k=10$，因此预测跨度约
 
 $$
 \mathcal L_{\mathrm{pred}}=
-\operatorname{MSE}(\widehat{\Delta Z},\Delta Z)
-+\beta\Bigl(1-\cos\bigl(\operatorname{vec}(\widehat{\Delta Z}),\operatorname{vec}(\Delta Z)\bigr)\Bigr).
+\mathrm{MSE}(\widehat{\Delta Z},\Delta Z)
++\beta\Bigl(1-\cos\bigl(\mathrm{vec}(\widehat{\Delta Z}),\mathrm{vec}(\Delta Z)\bigr)\Bigr).
 $$
 
 其中 Object10 记录的 $\beta=1$，损失在批次上取平均。MSE 约束变化量的数值差异，余弦项衡量视觉变化向量的方向一致性。
@@ -97,8 +97,8 @@ Corrector需要预测正常执行情况下的视觉特征变化，再将预测�
 其中，**零变化预测基线（zero-delta baseline）**是令预测器始终输出零向量，即 $\widehat{\Delta Z}=0$，相当于假设1秒后视觉特征与当前完全相同。对应的MSE就是验证数据真实视觉变化的逐元素平方均值：
 
 $$
-\operatorname{MSE}_{\mathrm{zero}}=
-\operatorname{mean}\bigl[(Z_{t+k}-Z_t)^2\bigr].
+\mathrm{MSE}_{\mathrm{zero}}=
+\mathrm{mean}\bigl[(Z_{t+k}-Z_t)^2\bigr].
 $$
 
 同一验证集的零变化基线MSE约为**11.5453**，而MLP约为**4.03**，说明原模型确实学到了视觉动态关系。
@@ -192,8 +192,8 @@ $$
 
 $$
 E_{t+k}=1-\cos\Bigl(
-\operatorname{vec}(\widehat{\Delta Z}_{t\rightarrow t+k}),
-\operatorname{vec}(\Delta Z^{\mathrm{obs}}_{t\rightarrow t+k})\Bigr).
+\mathrm{vec}(\widehat{\Delta Z}_{t\rightarrow t+k}),
+\mathrm{vec}(\Delta Z^{\mathrm{obs}}_{t\rightarrow t+k})\Bigr).
 $$
 
 #### 2.3.2 Bootstrap、动态阈值与触发条件
@@ -250,8 +250,8 @@ $$
 
 $$
 \mathcal L_{\cos}=1-\cos\left(
-\operatorname{vec}(\widehat{\Delta Z}_{\mathrm{cand}}),
-\operatorname{vec}(\Delta Z_{\mathrm{target}})
+\mathrm{vec}(\widehat{\Delta Z}_{\mathrm{cand}}),
+\mathrm{vec}(\Delta Z_{\mathrm{target}})
 \right),
 $$
 
@@ -272,13 +272,13 @@ $$
 
 $$
 \begin{aligned}
-\mathcal L_{\cos}&=1-\cos\bigl(\operatorname{vec}(\hat d),\operatorname{vec}(d^*)\bigr),\\
-\mathcal L_{\mathrm{MSE}}&=\operatorname{mean}\bigl[(\hat d-d^*)^2\bigr],\\
+\mathcal L_{\cos}&=1-\cos\bigl(\mathrm{vec}(\hat d),\mathrm{vec}(d^{*})\bigr),\\
+\mathcal L_{\mathrm{MSE}}&=\mathrm{mean}\bigl[(\hat d-d^{*})^2\bigr],\\
 \mathcal L_{\mathrm{sum}}&=\mathcal L_{\mathrm{MSE}}+\mathcal L_{\cos},
 \end{aligned}
 $$
 
-其中 $\hat d$ 是新候选动作对应的预测变化，$d^*$ 为触发时固定的纠偏目标。
+其中 $\hat d$ 是新候选动作对应的预测变化，$d^{*}$ 为触发时固定的纠偏目标。
 
 我们**仅改变OGG损失函数**的组成。三种方法统一采用 **$\eta=1$、50步动作块、10次Flow Matching去噪、guidance_every=3**（每次重规划的去噪索引0、3、6、9施加引导），MSE＋余弦的两项系数均为1。
 
