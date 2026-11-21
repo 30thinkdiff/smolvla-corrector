@@ -168,9 +168,9 @@ Corrector需要预测正常执行情况下的视觉特征变化，再将预测�
 | Block 8 | 0.135825 | **0.116464** | 14.3% |
 | Connector | 5.240073 | **3.905114** | 25.5% |
 
-三层原始MSE均下降，余弦相似度也分别从**0.6262、0.6576、0.7438**提高至**0.6678、0.7120、0.8142**。但这20条Episode也参与过Checkpoint验证和选优，且两种模型都仅比较训练seed42，因此这些数字说明**共同验证条件下的预测改善**，不能等同于完全独立测试集上的泛化结果。[J454训练、验证与闭环审计](https://github.com/30thinkdiff/robot-lab/blob/12a61e2d614a2bbe7af1b705ba2da427b59be431/studies/policy_generalization/results/20261121/j36m454/RESULTS.md) · [Checkpoint及逐层指标](https://github.com/30thinkdiff/robot-lab/blob/12a61e2d614a2bbe7af1b705ba2da427b59be431/studies/policy_generalization/results/20261121/j36m454/summary.json) · [逐Episode验证记录](https://github.com/30thinkdiff/robot-lab/blob/12a61e2d614a2bbe7af1b705ba2da427b59be431/studies/policy_generalization/results/20261121/j36m454/offline_metrics.csv)。
+三层原始MSE均下降，余弦相似度也分别从**0.6262、0.6576、0.7438**提高至**0.6678、0.7120、0.8142**。但这20条Episode也参与过Checkpoint验证和选优，且两种模型都仅比较训练seed42，因此这些数字说明**共同验证条件下的预测改善**。[J454训练、验证与闭环审计](https://github.com/30thinkdiff/robot-lab/blob/12a61e2d614a2bbe7af1b705ba2da427b59be431/studies/policy_generalization/results/20261121/j36m454/RESULTS.md) · [Checkpoint及逐层指标](https://github.com/30thinkdiff/robot-lab/blob/12a61e2d614a2bbe7af1b705ba2da427b59be431/studies/policy_generalization/results/20261121/j36m454/summary.json) · [逐Episode验证记录](https://github.com/30thinkdiff/robot-lab/blob/12a61e2d614a2bbe7af1b705ba2da427b59be431/studies/policy_generalization/results/20261121/j36m454/offline_metrics.csv)。
 
-早期J70在Object10的LVM/OGG均为**55/60**，Plus首轮均为**9/32**；新J454在相同范围内分别为**55/60、55/60**和**10/32、10/32**。因此，**增加训练数据改善了共同验证集上的预测精度，却未增加Object10成功总数；Plus各净增1回合**。由于新旧批次的训练样本、在线标定及运行环境并非完全相同，不能把闭环差异全部归因于数据规模。多层融合稳定优于Connector单层的假设仍未得到充分支持。
+早期J70在Object10的LVM/OGG均为**55/60**，Plus首轮均为**9/32**；新J454在相同范围内分别为**55/60、55/60**和**10/32、10/32**。因此，**增加训练数据改善了共同验证集上的预测精度，却未增加Object10成功总数；Plus各净增1回合**，多层融合稳定优于Connector单层的假设仍未得到充分支持。
 
 来源：[同数据协议的分层验证指标](https://github.com/30thinkdiff/robot-lab/blob/091272fd3fa4e0144d2e96683b72089a5a96a216/studies/policy_generalization/results/20261114/expanded_snapshot_20261113T161434Z/training_layers.csv)；[J-36M与Plus总结](https://github.com/30thinkdiff/robot-lab/blob/091272fd3fa4e0144d2e96683b72089a5a96a216/studies/policy_generalization/research_report.md)。
 
@@ -338,7 +338,7 @@ Object10数据包含**10个任务、454条示教Episode、66,984帧**，按Episo
 
 离线实验按最佳Checkpoint统计各训练种子的验证误差；正式闭环实验则**为每种模型选用训练种子42的Checkpoint**。逐模型训练轮次、样本量、Checkpoint哈希及参数记录见[训练明细](../results/object10/training_runs.csv)。
 
-后续的Block 2、Block 8单层模型和J-36M联合模型属于独立扩展。早期J70使用70条Episode（50训练、20验证），后续S2/S8以及新训练的J454均使用完整454条示教（364训练、90验证）。J454使用FP32、训练seed42、微批量8、梯度累积4，训练60轮并以Connector归一化验证MSE选取第39轮Checkpoint；与采用AMP-BF16和早停的原五模型训练协议不同。J454完整训练累计约**9小时27分钟**，最佳权重已通过重载验证；新旧J的三层监督系数保持0.25/0.25/0.50。不同特征尺度、训练预算和视觉缓存精度的结果分别报告，不直接当作仅改变模型结构的严格消融。[新J训练记录](https://github.com/30thinkdiff/robot-lab/blob/12a61e2d614a2bbe7af1b705ba2da427b59be431/studies/policy_generalization/results/20261121/j36m454/RESULTS.md) · [训练与环境协议](https://github.com/30thinkdiff/robot-lab/blob/12a61e2d614a2bbe7af1b705ba2da427b59be431/studies/policy_generalization/corrector/j36m454_20261120/OPERATIONS.md)。
+Block 2、Block 8单层模型和J-36M联合模型属于独立扩展。早期J70使用70条Episode（50训练、20验证），后续S2/S8以及新训练的J454均使用完整454条示教（364训练、90验证）。J454使用FP32、训练seed42、微批量8、梯度累积4，训练60轮并以Connector归一化验证MSE选取第39轮Checkpoint。[新J训练记录](https://github.com/30thinkdiff/robot-lab/blob/12a61e2d614a2bbe7af1b705ba2da427b59be431/studies/policy_generalization/results/20261121/j36m454/RESULTS.md) · [训练与环境协议](https://github.com/30thinkdiff/robot-lab/blob/12a61e2d614a2bbe7af1b705ba2da427b59be431/studies/policy_generalization/corrector/j36m454_20261120/OPERATIONS.md)。
 
 ### 3.3 闭环控制与评测矩阵
 
@@ -446,9 +446,9 @@ H3相较H1在这组条件中仅多成功1回合；A10-H1虽有最低验证MSE，
 | **J454-LVM（新）** | **10** | 6.25 | 2.27 | 43.41 | 67.20 |
 | **J454-OGG（新）** | **10** | 6.31 | 2.65 | 44.34 | 68.60 |
 
-在这批扰动条件下，历史H20成功**20/32**、MLP-LVM/OGG均为**11/32**、J70-LVM/OGG均为**9/32**，新增J454-LVM/OGG均为**10/32**。相对同模式J70，新J454各新增3例成功、失去2例原成功，净增1例；相对H20，新J454**没有新增成功回合，却失去10例H20已成功的回合**。J454的LVM与OGG在32组条件下终局逐例一致，不能由此认为OGG改善了任务成功率。
+在这批扰动条件下，历史H20成功**20/32**、MLP-LVM/OGG均为**11/32**、J70-LVM/OGG均为**9/32**，新增J454-LVM/OGG均为**10/32**。相对同模式J70，新J454各新增3例成功、失去2例原成功，净增1例；相对H20，新J454**没有新增成功回合，却失去10例H20已成功的回合**，但是时间成本过高。
 
-表中的**J454计时来自新评测批次**，其训练数据、视觉缓存和计算/采集环境与旧J70、MLP历史实验不完全一致。J454的监测约43～44 ms/环境步，历史J70约15～16 ms/环境步，但**不能把不同批次的墙钟差异简单归因于模型计算效率变化**；表中墙钟均使用各自回合内部计时口径。原17种方法的结果见[Plus首轮完整汇总](https://github.com/30thinkdiff/robot-lab/blob/091272fd3fa4e0144d2e96683b72089a5a96a216/studies/policy_generalization/results/20261114/expanded_snapshot_20261113T161434Z/plus_plus/methods.csv)；新J454见[正式回合结果](https://github.com/30thinkdiff/robot-lab/blob/12a61e2d614a2bbe7af1b705ba2da427b59be431/studies/policy_generalization/results/20261121/j36m454/RESULTS.md)及[运行耗时](https://github.com/30thinkdiff/robot-lab/blob/12a61e2d614a2bbe7af1b705ba2da427b59be431/studies/policy_generalization/results/20261121/j36m454/runtime_metrics.csv)。
+原17种方法的结果见[Plus首轮完整汇总](https://github.com/30thinkdiff/robot-lab/blob/091272fd3fa4e0144d2e96683b72089a5a96a216/studies/policy_generalization/results/20261114/expanded_snapshot_20261113T161434Z/plus_plus/methods.csv)；新J454见[正式回合结果](https://github.com/30thinkdiff/robot-lab/blob/12a61e2d614a2bbe7af1b705ba2da427b59be431/studies/policy_generalization/results/20261121/j36m454/RESULTS.md)及[运行耗时](https://github.com/30thinkdiff/robot-lab/blob/12a61e2d614a2bbe7af1b705ba2da427b59be431/studies/policy_generalization/results/20261121/j36m454/runtime_metrics.csv)。
 
 在**早期17方法对照**后，为检查部分条件对策略随机性的敏感性，从首轮结果中选取了**8个诊断条件**：`plus/cheese/robot_initial_states/1`、`plus/cheese/sensor_noise/1`、`plus/soup/language_instructions/1`、`plus/soup/light_conditions/1`、`plus/soup/objects_layout/1`、`plus/soup/objects_layout/2`、`plus/view5`、`plus/view15`。这些条件根据首轮方法表现差异选取，而非随机抽样。用seed1001和1002对17种方法完成**272回合复测**；在16组条件/seed组合中，H20成功12回合、MLP-LVM与MLP-OGG均13回合、J-LVM与J-OGG均4回合。[Plus复测结果](https://github.com/30thinkdiff/robot-lab/blob/091272fd3fa4e0144d2e96683b72089a5a96a216/studies/policy_generalization/results/20261114/expanded_snapshot_20261113T161434Z/plus_plus_replicates/methods.csv)。
 
@@ -502,10 +502,9 @@ Plus结果并不支持“H越小效果越好”。相对H20，H10有3例独自�
 
 **计算开销。** 同步实现的Corrector需要持续视觉编码、预测和评分。在正式Object10中，MLP-LVM虽然减少了VLA块调用，但每回合增加约3.33秒监测计算；跨任务实验监测路径平均约**22～23毫秒/环境控制步**，包含视觉编码等开销。实际价值必须将成功率、策略调用和墙钟时间综合衡量；笔者暂时没有验证异步执行能否隐藏这些开销。
 
-**实验范围。** 预测器训练数据来自LIBERO-Object示教：早期J70使用70条，原MLP等模型、单层S2/S8和新J454使用454条。正式闭环还覆盖了Spatial、Goal、Long，以及固定LIBERO-90十任务子集和选定的LIBERO-Plus条件；**J454自身只在Object10的60组及Plus的32组条件下完成闭环评测**，尚无对应的Spatial、Goal、Long或完整Plus基准结果。
+**实验范围。** 受限于硬件资源，训练数据只使用了LIBERO-Object的454条示教，评测只使用了Object10、LIBERO-90子集和LIBERO-Plus的32个扰动条件。
 
 **范化能力。** 在跨任务评测中，Corrector在Spatial、Goal和Long三个套件的成功率均低于H20，说明其对不同任务的范化能力有限。
-
 
 **vla模型本身能力不足。** 后续可以尝试通过后训练微调提升基础SmolVLA的能力，或者使用更强的VLA模型作为基础策略。 
 
