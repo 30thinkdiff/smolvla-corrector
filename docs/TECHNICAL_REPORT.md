@@ -204,7 +204,7 @@ E_{t+k}=1-\cos\Bigl(
 
 我们的实现提供三种监测模式：`monitor`只计算并记录评分，不干预动作执行；`lvm`在满足触发条件时清空剩余动作队列，调用基础策略重新规划；`ogg`采用同样的中断逻辑，并在随后一次动作块生成中启用梯度引导。
 
-在**2026年11月9日的Object10实验**中，我们对10个任务、每任务3个初始状态和2个评测随机种子进行配对测试，每种方法完成60回合。实验同时包含两种固定执行窗口，汇总结果如下：
+我们对10个任务、每任务3个初始状态和2个评测随机种子进行配对测试，每种方法完成60回合。实验同时包含两种固定执行窗口，汇总结果如下：
 
 | 方法 | 成功回合 | 平均VLA动作块调用次数/回合 | 平均监测耗时（秒/回合） | 平均总耗时（秒/回合） |
 | --- | ---: | ---: | ---: | ---: |
@@ -216,7 +216,7 @@ E_{t+k}=1-\cos\Bigl(
 
 这一批实验中，`monitor`与H50的动作执行结果相同，但增加了视觉预测与监测计算的耗时；启用中断后的LVM、OGG提高了成功回合数，同时也增加了总运行时间。OGG仅比LVM多成功1回合。上述总耗时是**同步仿真评测的回合墙钟时间**，包含仿真等其他开销，不是纯模型推理延迟。
 
-**这里使用的是11月9日保存的汇总结果**，与后续五种预测器正式对照实验属于不同批次；后者MLP-LVM和MLP-OGG均为55/60，不应混用这两批数据的分母和耗时。
+这里的结果与后续五种预测器正式对照实验属于不同批次；后者MLP-LVM和MLP-OGG均为55/60。
 
 数据来源：[当次五方法汇总](https://github.com/30thinkdiff/robot-lab/blob/091272fd3fa4e0144d2e96683b72089a5a96a216/studies/policy_generalization/results/20261109/object10_paired_final_overall.csv)；[实验范围与来源记录](https://github.com/30thinkdiff/robot-lab/blob/091272fd3fa4e0144d2e96683b72089a5a96a216/studies/policy_generalization/results/20261109/object10_paired_final.json)。源码：[在线运行适配](../implementation/corrector_online_runtime.py)、[偏离评分计算](../implementation/corrector_online_practice.py)。
 
