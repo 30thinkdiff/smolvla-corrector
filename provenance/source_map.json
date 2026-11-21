@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "note": "All 24 entries retain original source SHA and commit. Four Object10 CSV records were imported with CRLF-to-LF line-ending normalization; text identity after newline normalization was independently checked. For these four, migrated_git_blob_sha tracks committed bytes. This audit is not proof of GPU reproduci­bility.",
+  "note": "23 committed files verified against source provenance. Original source SHA and commit are retained. Four Object10 CSV files have verified CRLF-to-LF normalization; the runtime has a documented import-only modification removing the local exercise dependency. Both original and published blob SHAs are retained. Not a claim of fresh GPU reproduction.",
   "files": {
     "implementation/batch_evaluation.py": {
       "source_repository": "30thinkdiff/corrector",
@@ -34,21 +34,16 @@
       "size_bytes": 8668,
       "kind": "code"
     },
-    "implementation/corrector_online_practice.py": {
-      "source_repository": "30thinkdiff/corrector",
-      "source_commit": "39d6f61e33be5b1d928071ab8953f5ab8030c98d",
-      "source_path": "action-code-9274415dd6/corrector_online_practice.py",
-      "source_git_blob_sha": "885b52c60778ff8d46f61fa5a790aaf86b1ae80d",
-      "size_bytes": 6221,
-      "kind": "code"
-    },
     "implementation/corrector_online_runtime.py": {
       "source_repository": "30thinkdiff/corrector",
       "source_commit": "39d6f61e33be5b1d928071ab8953f5ab8030c98d",
       "source_path": "action-code-9274415dd6/corrector_online_runtime.py",
       "source_git_blob_sha": "710025a4b1fc1db7a895d5e0d36ccce6ffd77252",
       "size_bytes": 14186,
-      "kind": "code"
+      "kind": "code",
+      "migrated_git_blob_sha": "531834728806322cb58fdf3cd7b114c211edf02d",
+      "migration_normalization": "Local exercise fallback import removed; actual guided_velocity and visual_mismatch are imported from the pinned original research checkout",
+      "migrated_size_bytes": 14162
     },
     "implementation/corrector_results_analysis.py": {
       "source_repository": "30thinkdiff/corrector",

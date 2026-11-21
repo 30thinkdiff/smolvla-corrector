@@ -1,14 +1,13 @@
 # Code map
 
-The curated code in implementation/ was copied unchanged from pinned historical research sources (see provenance/source_map.json). This directory is an **inspectable frozen integration**. It has not been refactored into a standalone pip package.
+Most code under implementation/ is copied from pinned historical research sources (see provenance/source_map.json). The online runtime has a documented import-only adaptation: it loads scoring/guidance functions from the pinned original research checkout rather than bundling the exercise file. This is an **inspectable research integration**, not a standalone pip package.
 
 | Entry point | Function | Operational requirements |
 | --- | --- | --- |
 | corrector_data_workbench.py | Extracts/caches visual features and checks provenance | Input demonstrations, pinned encoder policy/source |
 | corrector_models.py | Prediction architecture factory, temporal and action conditioning | PyTorch and pinned upstream predictor definitions |
 | corrector_train.py | Predictor training/evaluation, optimizer state and checkpoints | Cached features + correct predictor source + PyTorch |
-| corrector_online_practice.py | Mismatch and guidance arithmetic | NumPy + PyTorch |
-| corrector_online_runtime.py | Installs LVM/OGG into a single SmolVLA simulation runtime | Compatible LeRobot policy + corrector + state machine |
+| corrector_online_runtime.py | Installs LVM/OGG into a single SmolVLA simulation runtime; imports original scoring/guidance functions | Compatible LeRobot policy, original research checkout, corrector and state machine |
 | smolvla_libero_tools.py | LIBERO environment and policy I/O | LeRobot/LIBERO assets |
 | smolvla_training_workbench.py | Dataset/policy preparation utilities | Original training environment and downloaded checkpoints |
 | batch_evaluation.py | Paired rollout plans, resumability and summary artifacts | Simulation callback and destination storage |
@@ -21,7 +20,7 @@ Historical source snapshots cannot be freely mixed. In particular, some previous
 
 ## Independent CPU-only verification
 
-- scripts/check_source_integrity.py: Git blob verification of 24 committed files; 4 Object10 CSV files were imported with verified CRLF-to-LF normalization.
+- scripts/check_source_integrity.py: Git blob verification of 23 committed files; 4 Object10 CSV files have verified CRLF-to-LF normalization and the runtime has a documented import-only adaptation.
 - scripts/reproduce_results.py: published result checks and 880-trial paired recomputation.
 - tests/: regression tests for the above.
 - .github/workflows/verify.yml: syntax compile and CPU audit; not a model-training CI test.

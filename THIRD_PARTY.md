@@ -8,7 +8,7 @@ Original research:
 - LIBERO: https://github.com/Lifelong-Robot-Learning/LIBERO (research environment pinned at 8f1084e3132a39270c9a13ebe37270a43ece2a01)
 - SmolVLA checkpoint: https://huggingface.co/lerobot/smolvla_libero (revision a24f1f380461b665158d52acd140152c79e8b36d)
 
-The **implementation/** directory contains original research integration and experiment scripts, copied byte-for-byte from the owner's pre-existing 30thinkdiff/corrector repository at a pinned revision. The files extend and interface with the above third-party projects; no claim is made that all underlying algorithms or imported functions are original contributions. The public project retains the upstream Apache-2.0 license text and cites its source. Copyright notices embedded in copied files remain intact.
+The **implementation/** directory contains research integration and experiment scripts from the owner's pre-existing `30thinkdiff/corrector` repository at a pinned revision. Files remain byte-for-byte copies except `corrector_online_runtime.py`, which was adapted solely to drop the local exercise-file fallback import. Both the original and published Git blob SHAs are preserved in `provenance/source_map.json`. The files extend and interface with the above third-party projects; no claim is made that all underlying algorithms or imported functions are original contributions. The public project retains the upstream Apache-2.0 license text and cites its source. Copyright notices embedded in copied files remain intact.
 
 The **results/** directory contains a selected set of existing evaluation outputs, not generated for this new portfolio repository. The source paths, immutable commits, and Git blob hashes for every migrated file are stored in provenance/source_map.json.
 

@@ -218,7 +218,7 @@ E_{t+k}=1-\cos\Bigl(
 
 这里的结果与后续五种预测器正式对照实验属于不同批次；后者MLP-LVM和MLP-OGG均为55/60。
 
-数据来源：[当次五方法汇总](https://github.com/30thinkdiff/robot-lab/blob/091272fd3fa4e0144d2e96683b72089a5a96a216/studies/policy_generalization/results/20261109/object10_paired_final_overall.csv)；[实验范围与来源记录](https://github.com/30thinkdiff/robot-lab/blob/091272fd3fa4e0144d2e96683b72089a5a96a216/studies/policy_generalization/results/20261109/object10_paired_final.json)。源码：[在线运行适配](../implementation/corrector_online_runtime.py)、[偏离评分计算](../implementation/corrector_online_practice.py)。
+数据来源：[当次五方法汇总](https://github.com/30thinkdiff/robot-lab/blob/091272fd3fa4e0144d2e96683b72089a5a96a216/studies/policy_generalization/results/20261109/object10_paired_final_overall.csv)；[实验范围与来源记录](https://github.com/30thinkdiff/robot-lab/blob/091272fd3fa4e0144d2e96683b72089a5a96a216/studies/policy_generalization/results/20261109/object10_paired_final.json)。源码：[在线运行适配](../implementation/corrector_online_runtime.py)、[实际在线评分函数（固定研究源码）](https://github.com/30thinkdiff/corrector/blob/39d6f61e33be5b1d928071ab8953f5ab8030c98d/studies/policy_generalization/corrector/online_practice.py#L11-L26)。
 
 ### 2.4 动作引导模块（OGG）
 

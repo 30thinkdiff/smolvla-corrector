@@ -15,11 +15,9 @@ from unittest.mock import patch
 import numpy as np
 import torch
 import corrector_models as models
-try:
-    from studies.policy_generalization.corrector.online_practice import guided_velocity, visual_mismatch
-except ModuleNotFoundError as error:
-    if not error.name.startswith('studies'): raise
-    from corrector_online_practice import guided_velocity, visual_mismatch
+# The archived research integration supplies the LVM/OGG scoring functions.
+# Keep this dependency explicit rather than bundling the exercise file.
+from studies.policy_generalization.corrector.online_practice import guided_velocity, visual_mismatch
 
 
 def student_should_interrupt(method, triggered):
