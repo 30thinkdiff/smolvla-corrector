@@ -31,7 +31,7 @@ VLA通常一次生成一段动作（Action Chunk）。在执行过程中，环�
 | MLP + LVM | **55/60** | 80/120 |
 | MLP + OGG | **55/60** | 77/120 |
 
-在Object10的配对测试中，MLP-LVM的成功回合数高于固定H20与H50，但**OGG相较LVM没有增加成功回合**。在Spatial、Goal、Long三个任务套件的预先固定主要比较中，H20反而领先。监测能够改变VLA生成动作块的次数，但会引入额外的墙钟耗时；不能仅凭动作块调用次数声称端到端加速。
+在Object10的配对测试中，MLP-LVM的成功回合数高于固定H20与H50，但**OGG相较LVM没有增加成功回合**。在Spatial、Goal、Long三个任务套件的预先固定主要比较中，H20反而有所领先。监测能够改变VLA生成动作块的次数，但会引入额外的墙钟耗时，相关测评需要进一步分析。
 
 完整实验记录包括 **5种预测器配置×3个训练种子**、Object10的 **1,200个配置/方法级正式评测回合**，以及跨任务的 **880个正式回合（220组四方法配对）**。不同预测器配置下重复执行的基线，不能累计为独立样本。
 
@@ -47,27 +47,13 @@ VLA通常一次生成一段动作（Action Chunk）。在执行过程中，环�
 | [results/plus_horizon/](results/plus_horizon/) | LIBERO-Plus执行窗口实验 |
 | [provenance/source_map.json](provenance/source_map.json) | 每份迁移文件的原仓库、固定提交、路径和Git Blob SHA |
 
-这些代码保留了研究时的集成方式，**并不是已经通过全新环境一键GPU复现的独立软件包**。不同实验的历史Checkpoint需要对应的冻结源码，见[复现说明](docs/REPRODUCTION.md)。
-
-## 复算公开数据
-
-只需要Python 3.10+标准库，无需GPU、模型下载或仿真：
-
-~~~bash
-python scripts/check_source_integrity.py
-python scripts/reproduce_results.py --format markdown
-python -m unittest discover -s tests -v
-~~~
-
-三条命令分别用于检查迁移文件来源、复算实验统计和运行CPU回归测试。
+不同实验的历史Checkpoint需要对应的冻结源码，见[复现说明](docs/REPRODUCTION.md)。
 
 ## 阅读与后续完善
 
-先阅读本页及[技术报告](docs/TECHNICAL_REPORT.md)理解方法和实验边界；查看实现时参考[代码索引](docs/CODE_MAP.md)和[来源映射](provenance/source_map.json)。
+先阅读本页及[技术报告](docs/TECHNICAL_REPORT.md)理解方法和实验边界；查看实现时参考[代码索引](docs/CODE_MAP.md)和[来源](provenance/source_map.json)。
 
-**研究边界：** 跨任务主表不包含补充初始状态及固定LIBERO-90十任务子集；基础SmolVLA的任务级训练覆盖尚未独立核对。后续发布的精选视频只用于解释具体案例，不能替代整体统计。
 
-> **当前状态：** 代码与公开实验记录已整理，技术报告仍有作者待完善部分；公开的原始配对视频、独立环境GPU端到端复现尚未完成。
 
 ---
 
