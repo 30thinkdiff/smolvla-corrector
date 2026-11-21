@@ -304,7 +304,7 @@ OGG通过损失对候选速度场的梯度来修正动作生成过程。因此�
 
 详细数据：[原始损失与梯度记录](https://github.com/30thinkdiff/robot-lab/blob/091272fd3fa4e0144d2e96683b72089a5a96a216/studies/policy_generalization/results/20261116/ogg_loss/guidance.csv)；[统计报告](https://github.com/30thinkdiff/robot-lab/blob/091272fd3fa4e0144d2e96683b72089a5a96a216/studies/policy_generalization/results/20261116/ogg_loss/RESULTS.md)。
 
-源码：[OGG基本求导流程](../implementation/corrector_online_practice.py)、[多动作引导扩展](../implementation/corrector_models.py)、[在线触发与调用](../implementation/corrector_online_runtime.py)。
+源码：[实际闭环评测中的OGG调用](https://github.com/30thinkdiff/corrector/blob/39d6f61e33be5b1d928071ab8953f5ab8030c98d/scripts/corrector_online_runtime.py#L201-L218)、[多动作引导扩展](../implementation/corrector_models.py)、[在线触发与调用](../implementation/corrector_online_runtime.py)。
 
 ### 2.5 本章小结
 
