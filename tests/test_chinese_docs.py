@@ -1,4 +1,4 @@
-"""Verify Chinese-primary README/report navigation and local links.
+"""Check the two Chinese documentation pages and their local links.
 
 Only Python standard library is used. Does not touch experiments or the GPU.
 """
@@ -7,26 +7,26 @@ import re
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = ("README.md", "README.en.md", "docs/TECHNICAL_REPORT.md",
-         "docs/TECHNICAL_REPORT.en.md")
+PAGES = ("README.md", "docs/TECHNICAL_REPORT.md")
 
 
-class BilingualNavigationTest(unittest.TestCase):
+class ChineseDocumentationTest(unittest.TestCase):
     def test_required_pages_exist(self):
         for page in PAGES:
             with self.subTest(page=page):
                 self.assertTrue((ROOT / page).is_file())
+        for removed in ("README.en.md", "docs/TECHNICAL_REPORT.en.md"):
+            with self.subTest(removed=removed):
+                self.assertFalse((ROOT / removed).exists())
 
-    def test_bidirectional_language_switch(self):
-        switches = {
-            "README.md": "README.en.md",
-            "README.en.md": "README.md",
-            "docs/TECHNICAL_REPORT.md": "TECHNICAL_REPORT.en.md",
-            "docs/TECHNICAL_REPORT.en.md": "TECHNICAL_REPORT.md",
-        }
-        for page, target in switches.items():
-            with self.subTest(page=page):
-                self.assertIn(f'href="{target}"', (ROOT / page).read_text(encoding="utf-8"))
+    def test_chinese_document_navigation(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        report = (ROOT / "docs/TECHNICAL_REPORT.md").read_text(encoding="utf-8")
+        self.assertIn("](docs/TECHNICAL_REPORT.md)", readme)
+        self.assertIn("](../README.md)", report)
+        for body in (readme, report):
+            self.assertNotIn("README.en.md", body)
+            self.assertNotIn("TECHNICAL_REPORT.en.md", body)
 
     def test_every_local_link_resolves(self):
         for page in PAGES:
@@ -45,8 +45,8 @@ class BilingualNavigationTest(unittest.TestCase):
         main = (ROOT / "README.md").read_text(encoding="utf-8")
         report = (ROOT / "docs/TECHNICAL_REPORT.md").read_text(encoding="utf-8")
         self.assertIn("主要实验结果", main)
-        self.assertIn("待作者完善", report)
-        self.assertIn("英文技术报告", report)
+        self.assertIn("## 摘要", report)
+        self.assertIn("## 6. 结论", report)
 
 
 if __name__ == "__main__":

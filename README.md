@@ -2,10 +2,6 @@
 
 **基于 VLA-Corrector 的复现、扩展与闭环鲁棒性研究**
 
-<p align="center">
-  <strong>简体中文</strong> · <a href="README.en.md">English</a>
-</p>
-
 本项目以 [VLA-Corrector](https://github.com/ZJU-OmniAI/vla-corrector)（NeurIPS 2026）为基础，结合 **SmolVLA / LIBERO**，研究视觉动态预测、在线状态偏离监测与事件触发重规划在机器人操作任务中的实际效果。仓库整理了历史训练与在线执行代码、可复算的实验记录，以及复现过程中发现的局限。
 
 **本仓库是独立复现与实证研究，不是原论文官方实现；下文成绩也不是原论文公布的基准结果。**
@@ -55,6 +51,4 @@ VLA通常一次生成一段动作（Action Chunk）。在执行过程中，环�
 
 
 
----
-
-**维护约定：** 中文 [README.md](README.md) 与[中文技术报告](docs/TECHNICAL_REPORT.md)是主要维护版本。你修改中文内容后，再同步英文 [README](README.en.md) 和 [Technical Report](docs/TECHNICAL_REPORT.en.md)；涉及结果数字时须同时核对原始实验记录。
+**维护约定：** 本仓库维护中文README与中文技术报告；涉及结果数字时须核对原始实验记录。

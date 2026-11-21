@@ -1,10 +1,6 @@
 # 技术报告：SmolVLA-Corrector
 
-<p align="center">
-  <strong>简体中文</strong> · <a href="TECHNICAL_REPORT.en.md">English</a>
-</p>
-
-[中文README](../README.md) · [English README](../README.en.md) · [复现说明](REPRODUCTION.md) · [来源与许可](../THIRD_PARTY.md)
+[README](../README.md) · [复现说明](REPRODUCTION.md) · [来源与许可](../THIRD_PARTY.md)
 
 ## 摘要
 
@@ -508,6 +504,4 @@ J-OGG相对于MLP-OGG在60组条件中有2例独自成功、2例反向失败。J
 - LeRobot / SmolVLA：https://github.com/huggingface/lerobot
 - LIBERO：https://github.com/Lifelong-Robot-Learning/LIBERO
 - LIBERO-Plus：https://github.com/sylvestf/LIBERO-plus
----
 
-**同步约定：** 优先维护本中文报告；后续按中文内容更新[英文技术报告](TECHNICAL_REPORT.en.md)。中英文数值或表述出现冲突时，首先以原始实验数据和实际运行协议为准。
