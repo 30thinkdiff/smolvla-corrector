@@ -436,7 +436,7 @@ H3相较H1在这组条件中仅多成功1回合；A10-H1虽有最低验证MSE，
 
 在这批扰动条件下，**H20成功20回合，而MLP-LVM/OGG均为11回合、J-LVM/OGG均为9回合**。部分Corrector配置减少了VLA动作块生成，但没有提高成功数，监测又增加了同步计算开销。其他模型中，Transformer-H1的LVM/OGG均为12/32，A10-H3-LVM也是12/32，仍未超过H20。17种方法的完整结果、监测覆盖率和OGG调用见[Plus首轮完整汇总](https://github.com/30thinkdiff/robot-lab/blob/091272fd3fa4e0144d2e96683b72089a5a96a216/studies/policy_generalization/results/20261114/expanded_snapshot_20261113T161434Z/plus_plus/methods.csv)。
 
-为检查部分条件对策略随机性的敏感性，之后又从首轮结果中挑选**8个诊断条件**，用seed1001和1002对17种方法完成**272回合复测**。在16组条件/seed组合中，H20成功12回合、MLP-LVM与MLP-OGG均13回合、J-LVM与J-OGG均4回合。[Plus复测结果](https://github.com/30thinkdiff/robot-lab/blob/091272fd3fa4e0144d2e96683b72089a5a96a216/studies/policy_generalization/results/20261114/expanded_snapshot_20261113T161434Z/plus_plus_replicates/methods.csv)。
+为检查部分条件对策略随机性的敏感性，之后从首轮结果中选取了**8个诊断条件**：`plus/cheese/robot_initial_states/1`、`plus/cheese/sensor_noise/1`、`plus/soup/language_instructions/1`、`plus/soup/light_conditions/1`、`plus/soup/objects_layout/1`、`plus/soup/objects_layout/2`、`plus/view5`、`plus/view15`。这些条件根据首轮方法表现差异选取，而非随机抽样。用seed1001和1002对17种方法完成**272回合复测**；在16组条件/seed组合中，H20成功12回合、MLP-LVM与MLP-OGG均13回合、J-LVM与J-OGG均4回合。[Plus复测结果](https://github.com/30thinkdiff/robot-lab/blob/091272fd3fa4e0144d2e96683b72089a5a96a216/studies/policy_generalization/results/20261114/expanded_snapshot_20261113T161434Z/plus_plus_replicates/methods.csv)。
 
 #### 固定执行前缀的补充诊断
 
@@ -471,7 +471,7 @@ Plus结果并不支持“H越小效果越好”。相对H20，H10有3例独自�
 
 J-OGG相对于MLP-OGG在60组条件中有2例独自成功、2例反向失败。J早期只使用70条示教，而原MLP和后续S2/S8使用454条；训练量、特征精度及部分协议没有完全统一。这些实测结果表明中间层和联合预测器均能参与闭环控制，但本组没有观察到稳定高于Connector单层基线的总成功率。[J-36M结果](https://github.com/30thinkdiff/robot-lab/blob/091272fd3fa4e0144d2e96683b72089a5a96a216/studies/policy_generalization/results/20261113/j36m_object/RESULTS.md) · [单层对照](https://github.com/30thinkdiff/robot-lab/blob/091272fd3fa4e0144d2e96683b72089a5a96a216/studies/policy_generalization/results/20261120/single_layer_object60/RESULTS.md)。
 
-**已执行动作到期监测。** 在另一套固定阈值与冷却规则下，针对A10-H1进行了规划动作与真实已执行动作的一致性监测。571组共同条件中，H50、H10、规划动作LVM、已执行动作LVM分别成功**393、529、436、477**回合。已执行动作方案比规划动作多成功41回合，但仍低于H10。由于输入动作、评分时机和后续执行轨迹均可能改变，这一结果不能仅解释为覆盖率提升的单变量效应，也不能与第4.1节的动态阈值实验直接合并。[已执行动作实验](https://github.com/30thinkdiff/robot-lab/blob/091272fd3fa4e0144d2e96683b72089a5a96a216/studies/policy_generalization/results/20261112/overnight_review/RESULTS.md)。
+**已执行动作到期监测。** 在另一套固定阈值与冷却规则下，针对A10-H1进行了规划动作与真实已执行动作的一致性监测。571组共同条件中，H50、H10、规划动作LVM、已执行动作LVM分别成功**393、529、436、477**回合。已执行动作方案相对规划动作方案净增加**41个成功回合**。需要注意，**这批实验没有运行同条件的H20**：当时选用H10作为高频固定窗口基线，因此不能把其他批次的H20结果直接用于比较。已执行动作方案仍低于本批H10的529/571，但本项实验的主要配对比较是规划动作与已执行动作两种监测方案。由于输入动作、评分时机和后续执行轨迹均可能改变，这一结果不能仅解释为覆盖率提升的单变量效应，也不能与第4.1节的动态阈值实验直接合并。[已执行动作实验](https://github.com/30thinkdiff/robot-lab/blob/091272fd3fa4e0144d2e96683b72089a5a96a216/studies/policy_generalization/results/20261112/overnight_review/RESULTS.md)。
 
 **OGG损失对照。** 在8个选定条件、2个评测seed的96回合中，MLP使用余弦/MSE/MSE＋余弦时均为**11/16**；J-36M分别为**7/16、9/16、8/16**。三种损失统一\(\eta=1\)、\`guidance_every=3\`，但MSE对应梯度幅值远大于余弦损失。实验说明改变损失会改变个别回合结局，尚不足以区分损失形式与实际更新强度的作用。详情见第2.4节及[原始实验记录](https://github.com/30thinkdiff/robot-lab/blob/091272fd3fa4e0144d2e96683b72089a5a96a216/studies/policy_generalization/results/20261116/ogg_loss_extension/RESULTS.md)。
 
